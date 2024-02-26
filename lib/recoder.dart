@@ -16,7 +16,7 @@ class Recoder extends StatefulWidget {
 
 
 class _RecoderState extends State<Recoder> {
-  final List<Ticket> _registredtikets = [ ];
+  final List<Ticket> _registredtikets = [];
 
   void removetickets(Ticket ticket)
   {
