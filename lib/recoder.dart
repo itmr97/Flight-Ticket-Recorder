@@ -16,15 +16,7 @@ class Recoder extends StatefulWidget {
 
 
 class _RecoderState extends State<Recoder> {
-  final List<Ticket> _registredtikets = [
-    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
-        Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
-    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
-    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
-    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
-
-    
-  ];
+  final List<Ticket> _registredtikets = [ ];
 
   void removetickets(Ticket ticket)
   {
