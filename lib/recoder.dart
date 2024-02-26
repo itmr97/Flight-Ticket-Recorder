@@ -16,7 +16,15 @@ class Recoder extends StatefulWidget {
 
 
 class _RecoderState extends State<Recoder> {
-  final List<Ticket> _registredtikets = [];
+  final List<Ticket> _registredtikets = [
+    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
+        Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
+    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
+    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
+    Ticket(name: 'mustafa', price: 100, date: DateTime.now(), destnation: Destnation.iran, section: Section.economy),
+
+    
+  ];
 
   void removetickets(Ticket ticket)
   {
@@ -49,11 +57,13 @@ class _RecoderState extends State<Recoder> {
 
   @override
   Widget build(BuildContext context) {
+    final width=MediaQuery.of(context).size.width;
     return   Scaffold(
       appBar: AppBar(
         title: const Text('Flight Tickets Recoder'),
       ),
-      body: Column(
+      body: width<600?
+      Column(
           children: [
             Expanded(
               child: TicketList(tickets: _registredtikets,removeticket: removetickets,)
@@ -61,6 +71,7 @@ class _RecoderState extends State<Recoder> {
              Padding(padding: const EdgeInsets.fromLTRB(300, 10, 10, 90) ,
             child:  IconButton(onPressed: (){ 
                 showModalBottomSheet(
+                  useSafeArea: true,
                 context: context, 
                 isScrollControlled: true,
                 builder: (ctx)=> NewTickets(addticket: addticket),
@@ -77,7 +88,31 @@ class _RecoderState extends State<Recoder> {
       
           ],
 
-      ),
+      ): Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+           Expanded(
+              child: TicketList(tickets: _registredtikets,removeticket: removetickets,)
+            ),
+             Padding(padding: const EdgeInsets.fromLTRB(300, 100, 10, 90) ,
+            child:  IconButton(onPressed: (){ 
+                showModalBottomSheet(
+                  useSafeArea: true,
+                context: context, 
+
+                isScrollControlled: true,
+                builder: (ctx)=> NewTickets(addticket: addticket),
+
+                );
+                }, 
+                icon: const Icon(Icons.add),
+                color: Colors.black,
+                iconSize:40,
+                ),
+            
+            )
+        ],
+      )
      
     );
     

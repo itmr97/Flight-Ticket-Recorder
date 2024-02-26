@@ -60,92 +60,97 @@ class NewTicketState extends State<NewTickets> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
-      child: Column(children: [
-         TextField(
-          controller: _namecontrolier,
-          maxLength: 50,
-          decoration: const InputDecoration(
-            label: Text('Name'),
+    
+    final keyboardspace=MediaQuery.of(context).viewInsets.bottom;
+    return SingleChildScrollView(
+      child: Padding(
+        padding:  EdgeInsets.fromLTRB(16, 16, 16, 16+keyboardspace),
+        child: Column(children: [
+           TextField(
+            controller: _namecontrolier,
+            maxLength: 50,
+            decoration: const InputDecoration(
+              label: Text('Name'),
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
-        Row(children: [
-          Expanded(
-              child: DropdownButton(
-            value: _destnationcity,
-            items: Destnation.values
-                .map((destnation) => DropdownMenuItem(
-                    value: destnation, child: Text(destnation.name.toString())))
-                .toList(),
-            onChanged: (value) {
-              if(value==null)
-              {
-                return;
-              }
-              setState(() {
-                _destnationcity=value;
-              });
-            },
-          )),
-          const Spacer(),
+          const SizedBox(height: 16),
+          Row(children: [
+            Expanded(
+                child: DropdownButton(
+              value: _destnationcity,
+              items: Destnation.values
+                  .map((destnation) => DropdownMenuItem(
+                      value: destnation, child: Text(destnation.name.toString())))
+                  .toList(),
+              onChanged: (value) {
+                if(value==null)
+                {
+                  return;
+                }
+                setState(() {
+                  _destnationcity=value;
+                });
+              },
+            )),
+            const Spacer(),
+            Row(
+              children: [
+                Text(_selecteddate == null
+                    ? 'select date'
+                    : formatter.format(_selecteddate!)),
+                IconButton(
+                    onPressed: _showdatepicker,
+                    icon: const Icon(Icons.calendar_month))
+              ],
+            )
+          ]),
           Row(
             children: [
-              Text(_selecteddate == null
-                  ? 'select date'
-                  : formatter.format(_selecteddate!)),
-              IconButton(
-                  onPressed: _showdatepicker,
-                  icon: const Icon(Icons.calendar_month))
+               Expanded(
+                  child: TextField(
+                    controller: _pricecontroller,
+                maxLength: 20,
+                keyboardType: TextInputType.number,
+                decoration:
+                   const  InputDecoration(label: Text('price'), prefixText: '\$ '),
+              )),
+              const Spacer(),
+              Expanded(
+                  child: Row(
+                children: [
+                  DropdownButton(
+                    value: _sectionclass,
+                    items: Section.values
+                        .map((sectionclass) => DropdownMenuItem(
+                            value: sectionclass,
+                            child: Text(sectionclass.name.toString())))
+                        .toList(),
+                    onChanged: (value) {
+                      if(value==null)
+                      {
+                        return;
+                      }
+                      setState(() {
+                        _sectionclass=value;
+                      });
+                    },
+                  ),
+                ],
+              ))
+            ],
+          ),
+          const SizedBox(height: 40),
+           Row( 
+            mainAxisAlignment: MainAxisAlignment.end,        
+            children: [
+                TextButton(onPressed: (){Navigator.pop(context);},
+                 child: const Text('cancel')),
+                 ElevatedButton(onPressed: _confirm, child: const Text('confirm'))
+      
             ],
           )
         ]),
-        Row(
-          children: [
-             Expanded(
-                child: TextField(
-                  controller: _pricecontroller,
-              maxLength: 20,
-              keyboardType: TextInputType.number,
-              decoration:
-                 const  InputDecoration(label: Text('price'), prefixText: '\$ '),
-            )),
-            const Spacer(),
-            Expanded(
-                child: Row(
-              children: [
-                DropdownButton(
-                  value: _sectionclass,
-                  items: Section.values
-                      .map((sectionclass) => DropdownMenuItem(
-                          value: sectionclass,
-                          child: Text(sectionclass.name.toString())))
-                      .toList(),
-                  onChanged: (value) {
-                    if(value==null)
-                    {
-                      return;
-                    }
-                    setState(() {
-                      _sectionclass=value;
-                    });
-                  },
-                ),
-              ],
-            ))
-          ],
-        ),
-        const SizedBox(height: 40),
-         Row(          
-          children: [
-              TextButton(onPressed: (){Navigator.pop(context);},
-               child: const Text('cancel')),
-               ElevatedButton(onPressed: _confirm, child: const Text('confirm'))
-
-          ],
-        )
-      ]),
+      ),
     );
   }
 }
